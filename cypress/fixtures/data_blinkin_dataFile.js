@@ -10,5 +10,8 @@ module.exports.passwd = "testuser";
 module.exports.position = "test";
 module.exports.country = "India"
 
-module.exports.bulkUser1 = "test@gmail.com";
-module.exports.bulkUser2 = "test2@gmail.com";
+module.exports.bulkUser1 = "test0039@blinkin.io";
+module.exports.bulkUser2 = "test0049@blinkin.io";
+
+module.exports.bulkUser11 = "test041@blinkin.io";
+module.exports.bulkUser22 = "test052@blinkin.io";

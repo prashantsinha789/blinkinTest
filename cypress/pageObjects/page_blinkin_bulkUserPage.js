@@ -7,10 +7,24 @@ class bulkUserPage {
             .get(':nth-child(1) > .inputGroup > label').click();
     }
 
+    selectWithPassword() {
+        cy
+            .get(':nth-child(2) > .inputGroup > label').click();
+    }
+
     uploadCSVwithoutPassword() {
         cy
             .get('.dashed-border > input').click()
             .attachFile("/users.csv")
+            .xpath("//button[text()='Upload']").click()
+            .wait(5000);
+    }
+
+    uploadCSVwithPassword() {
+        cy
+            .get('.dashed-border > input').click()
+            .attachFile("/usersWithPass.csv")
+            .wait(2000)
             .xpath("//button[text()='Upload']").click()
             .wait(5000);
     }

@@ -25,7 +25,7 @@ class loginPage {
     clickOnLoginBtn() {
         cy
             .get('.px-4').click()
-            .wait(1000)
+            .wait(5000)
             .get('.navbar-brand-minimized').should('be.visible')
             .wait(1000)
             .get('h1').should('be.visible');

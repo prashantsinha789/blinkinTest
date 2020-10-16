@@ -9,6 +9,9 @@ const user = dataFile.username;
 const pass = dataFile.password;
 const bUser1 = dataFile.bulkUser1;
 const bUser2 = dataFile.bulkUser2;
+const bUser11 = dataFile.bulkUser11;
+const bUser22 = dataFile.bulkUser22;
+
 
 
 //handle uncaught exception
@@ -16,7 +19,7 @@ Cypress.on('uncaught:exception', (err, runnable) => {
     return false
 });
 
-describe('Create Bulk Users with/without password', () => {
+describe('Create Bulk Users without password', () => {
     it('Admin Should be able to import users without password from csv file', () => {
         login.open();
         login.loginAs(user, pass);
@@ -98,4 +101,69 @@ describe('Create Bulk Users with/without password', () => {
         //logout
         login.logout();
     })
+})
+
+
+describe('Create Bulk Users with password', () => {
+    it('Admin Should be able to import users without password from csv file', () => {
+        login.open();
+        login.loginAs(user, pass);
+        login.clickOnLoginBtn();
+        hamburgerMenu.expandMenu();
+        hamburgerMenu.goToAdmin();
+        // check precount for users
+        hamburgerMenu.goToDashboard();
+        users.verifyCount();
+        // go to add user
+        hamburgerMenu.goToBulkAddUser();
+        bulkUser.selectWithPassword();
+        bulkUser.uploadCSVwithPassword();
+        // check postcount for users
+        cy.wait(3000);
+        hamburgerMenu.goToDashboard();
+        users.verifyPostCountForBulkUser();
+        //logout
+        login.logout();
+    });
+
+    it('login as user 1 and delete the user', () => {
+        login.open();
+        //login as bulk user 1
+        login.loginAs(bUser22, pass);
+        login.clickOnLoginBtn();
+        //logout
+        login.logout();
+
+        //login back as an admin and delete the user
+        login.loginAs(user, pass);
+        login.clickOnLoginBtn();
+        hamburgerMenu.expandMenu();
+        hamburgerMenu.goToAdmin();
+        // go to users
+        hamburgerMenu.goToUsers();
+        users.deleteUser();
+        //logout
+        login.logout();
+    })
+
+
+    it('Set the password for user 2, login and delete the user', () => {
+        //login as bulk user 1
+        login.loginAs(bUser11, pass);
+        login.clickOnLoginBtn();
+        //logout
+        login.logout();
+
+        //login back as an admin and delete the user
+        login.loginAs(user, pass);
+        login.clickOnLoginBtn();
+        hamburgerMenu.expandMenu();
+        hamburgerMenu.goToAdmin();
+        // go to users
+        hamburgerMenu.goToUsers();
+        users.deleteUser();
+        //logout
+        login.logout();
+    })
+
 })
